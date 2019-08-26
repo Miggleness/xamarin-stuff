@@ -16,6 +16,7 @@ namespace MarvelCards
         public MainPage()
         {
             InitializeComponent();
+            base.BindingContext = new HeroCardsViewModel();
         }
     }
 }
