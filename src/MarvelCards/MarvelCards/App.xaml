@@ -12,14 +12,31 @@
 
         <Style x:Key="Header" TargetType="Label">
             <Setter Property="FontFamily" Value="{StaticResource HeaderFont}" />
-            <Setter Property="FontSize" Value="40" />
-            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="60" />
+            <Setter Property="TextColor" Value="White" />
         </Style>
 
         <Style x:Key="SubHeader" TargetType="Label">
-            <Setter Property="FontFamily" Value="{StaticResource BodyFont}" />
+            <Setter Property="FontFamily" Value="{StaticResource HeaderFont}" />
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="Style" Value="White" />
         </Style>
+
+        <Style x:Key="LearnMore" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource BodyFont}" />
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="TextColor" Value="yellow" />
+        </Style>
+
+        <Style TargetType="StackLayout">
+            <Setter Property="Spacing" Value="0" />
+        </Style>
+
+        <Style TargetType="Grid">
+            <Setter Property="RowSpacing" Value="0"/>
+            <Setter Property="ColumnSpacing" Value="0"/>
+        </Style>
+
     </Application.Resources>
 </Application>

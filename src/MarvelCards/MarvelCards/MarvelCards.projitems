@@ -11,6 +11,10 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)HeroCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
@@ -21,5 +25,8 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HeroCardsViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HeroCard.xaml.cs">
+      <DependentUpon>HeroCard.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
