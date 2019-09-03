@@ -14,24 +14,24 @@
         <BoxView
             Grid.Row="1"
             BackgroundColor="{Binding HeroColor}"
-            CornerRadius="30,30,0,0"
-            HeightRequest="600"
+            CornerRadius="30"
+            HeightRequest="550"
             HorizontalOptions="Fill"
             VerticalOptions="End"
-            Margin="5,0"
+            
             />
 
         <Image
             x:Name="HeroImage"
             Grid.Row="1"
             Source="{Binding Image}"
-            HeightRequest="350"
+            HeightRequest="380"
             TranslationY="-150"
             VerticalOptions="Start"/>
 
         <StackLayout
             Grid.Row="1"
-            Padding="40,150,0,0">
+            Padding="40,180,0,0">
                            
             <Label Text="{Binding HeroNameLine1}"
                 VerticalOptions="Start"

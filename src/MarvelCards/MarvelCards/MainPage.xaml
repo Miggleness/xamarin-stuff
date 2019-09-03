@@ -15,7 +15,8 @@
            >
            <cards:CardsView.ItemTemplate>
                <DataTemplate>
-                   <marvel:HeroCard />
+                   <marvel:HeroCard
+                       Margin="0,0,0,-30"/>
                </DataTemplate>
            </cards:CardsView.ItemTemplate>
        </cards:CardsView>

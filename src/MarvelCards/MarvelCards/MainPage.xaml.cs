@@ -25,7 +25,7 @@ namespace MarvelCards
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            MainCardView.UserInteracted += MainCardView_UserInteracted;            
+            MainCardView.UserInteracted += MainCardView_UserInteracted;
         }
 
         protected override void OnDisappearing()
@@ -44,14 +44,9 @@ namespace MarvelCards
             var percentFromCenter = Math.Abs(args.Diff / this.Width);
             Debug.WriteLine($"% from C: {card.CardImage.Source.ToString()} {args.Status} {percentFromCenter}");
 
-            if (nextCard != null)
-            {
-                Debug.WriteLine($"Next: {nextCard.CardImage.Source.ToString()}");
-            }
-
             if (args.Status == PanCardView.Enums.UserInteractionStatus.Started)
             {
-                if (nextCard != null)
+                if (nextCard != null && false)
                 {
                     nextCard.Opacity = 1;
                     nextCard.CardImage.Scale = 1;
@@ -64,7 +59,6 @@ namespace MarvelCards
                 // control opacity of currnet card
                 var opacity = 1 - (percentFromCenter * 0.8);
                 card.Opacity = (opacity > 1) ? 1 : opacity;
-                
 
                 // set scale of image in current card
                 card.CardImage.Scale = Math.Max(1 - (percentFromCenter * 1.5), .5);
@@ -76,6 +70,13 @@ namespace MarvelCards
                 // set opacity of next card
                 nextCard.CardImage.Opacity = 1 - (opacity/4);
                 nextCard.CardImage.Scale = Math.Min(percentFromCenter * 3, 1);
+
+                // set margin
+                var lrMargin = Math.Min(10, 50 * percentFromCenter);
+
+                // add margin
+                card.ScaleTo(.9, 50);
+
             }
 
             if(args.Status == PanCardView.Enums.UserInteractionStatus.Ended
@@ -85,6 +86,15 @@ namespace MarvelCards
                 card.CardImage.Opacity = 1;
                 card.CardImage.Scale = 1;
                 card.CardImage.TranslationY = _defaultTranslationY;
+
+                // ensure next card is hidden
+                nextCard.CardImage.Opacity = 0;
+                nextCard.CardImage.Scale = 1;
+                nextCard.CardImage.TranslationY = _defaultTranslationY;
+
+                // remove margin
+                card.ScaleTo(1, 50);
+
             }
         }
 
