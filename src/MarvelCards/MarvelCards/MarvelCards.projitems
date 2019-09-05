@@ -28,5 +28,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)HeroCard.xaml.cs">
       <DependentUpon>HeroCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Messaging\CardEvent.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Messaging\" />
   </ItemGroup>
 </Project>

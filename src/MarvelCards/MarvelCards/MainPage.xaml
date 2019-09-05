@@ -9,9 +9,9 @@
              x:Class="MarvelCards.MainPage">
    <Grid>
        <cards:CardsView
+           x:Name="MainCardView"
            ItemsSource="{Binding Heroes}"
            IsCyclical="True"
-           x:Name="MainCardView"
            >
            <cards:CardsView.ItemTemplate>
                <DataTemplate>
@@ -20,6 +20,22 @@
                </DataTemplate>
            </cards:CardsView.ItemTemplate>
        </cards:CardsView>
+
+       <Label x:Name="MoviesHeader"
+              Margin="20"
+              HorizontalOptions="Center"
+              VerticalOptions="Start"
+              Text="movies"
+              Style="{StaticResource TitleHeader}"
+              />
+
+       <Image
+           x:Name="BackArrow"
+           Source="back_arrow"
+           HorizontalOptions="Start"
+           VerticalOptions="Start"
+           Margin="40,30,0,0"
+           />
 
    </Grid>
 </ContentPage>

@@ -29,6 +29,13 @@
             <Setter Property="TextColor" Value="yellow" />
         </Style>
 
+        <Style x:Key="TitleHeader" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource BodyFont}" />
+            <Setter Property="FontSize" Value="26" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="Style" Value="White" />
+        </Style>
+
         <Style TargetType="StackLayout">
             <Setter Property="Spacing" Value="0" />
         </Style>

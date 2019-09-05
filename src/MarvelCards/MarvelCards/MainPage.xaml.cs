@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MarvelCards.Messaging;
 using Xamarin.Forms;
 
 namespace MarvelCards
@@ -20,18 +21,30 @@ namespace MarvelCards
         {
             InitializeComponent();
             base.BindingContext = new HeroCardsViewModel();
-        }
 
+            
+        }
+         
         protected override void OnAppearing()
         {
             base.OnAppearing();
             MainCardView.UserInteracted += MainCardView_UserInteracted;
+            // subscribe to messaging
+            MessagingCenter.Subscribe<CardEvent>(this, CardState.Expanded.ToString(), CardExpand);
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             MainCardView.UserInteracted -= MainCardView_UserInteracted;
+            MessagingCenter.Unsubscribe<CardEvent>(this, CardState.Expanded.ToString());
+
+        }
+
+        private void CardExpand(CardEvent message)
+        {
+            // turn off swipe direction
+            MainCardView.IsUserInteractionEnabled = false;
 
         }
 
