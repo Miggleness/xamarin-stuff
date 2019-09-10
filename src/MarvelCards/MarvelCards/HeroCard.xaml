@@ -3,35 +3,29 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     x:Class="MarvelCards.HeroCard">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="220" />
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <BoxView
-            Grid.Row="1"
-            BackgroundColor="{Binding HeroColor}"
-            CornerRadius="30"
-            HeightRequest="550"
+        <skia:SKCanvasView
+            x:Name="CardBackground"
             HorizontalOptions="Fill"
-            VerticalOptions="End"
-            
+            VerticalOptions="Fill"
+            PaintSurface="CardBackground_PaintSurface"
             />
 
         <Image
             x:Name="HeroImage"
-            Grid.Row="1"
             Source="{Binding Image}"
-            HeightRequest="380"
-            TranslationY="-150"
+            HeightRequest="400"
+            WidthRequest="400"
+            TranslationY="50"
             VerticalOptions="Start"/>
+        
 
-        <StackLayout
-            Grid.Row="1"
-            Padding="40,180,0,0">
+            <StackLayout Margin="40,400,40,30">
                            
             <Label Text="{Binding HeroNameLine1}"
                 VerticalOptions="Start"
@@ -70,6 +64,7 @@
             
 
         </StackLayout>
+        
                        
     </Grid>
 </ContentView>

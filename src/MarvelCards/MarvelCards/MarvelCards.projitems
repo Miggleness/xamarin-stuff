@@ -29,6 +29,7 @@
       <DependentUpon>HeroCard.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\CardEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Messaging\" />

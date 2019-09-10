@@ -15,14 +15,13 @@ namespace MarvelCards
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        const double _defaultTranslationY = -150;
+        const double _defaultTranslationY = 50;
+        const double _movementFactor = 100;
 
         public MainPage()
         {
             InitializeComponent();
-            base.BindingContext = new HeroCardsViewModel();
-
-            
+            base.BindingContext = new HeroCardsViewModel();            
         }
          
         protected override void OnAppearing()
@@ -30,7 +29,7 @@ namespace MarvelCards
             base.OnAppearing();
             MainCardView.UserInteracted += MainCardView_UserInteracted;
             // subscribe to messaging
-            MessagingCenter.Subscribe<CardEvent>(this, CardState.Expanded.ToString(), CardExpand);
+            MessagingCenter.Subscribe<CardEvent>(this, CardState.Expanded.ToString(), CardExpanded);
         }
 
         protected override void OnDisappearing()
@@ -41,11 +40,39 @@ namespace MarvelCards
 
         }
 
-        private void CardExpand(CardEvent message)
+        private void CardExpanded(CardEvent message)
         {
-            // turn off swipe direction
-            MainCardView.IsUserInteractionEnabled = false;
+            // do animation
+            AnimateTitle(CardState.Expanded);
 
+            // turn on user interaction
+            MainCardView.IsUserInteractionEnabled = false;
+        }
+
+        private void BackArrowImage_Tapped(object sender, EventArgs e)
+        {
+            AnimateTitle(CardState.Collapsed);
+
+            // communicate change to card view
+            ((HeroCard)MainCardView.CurrentView).ChangeState(CardState.Collapsed);
+
+            MainCardView.IsUserInteractionEnabled = true;
+        }
+
+        private void AnimateTitle(CardState cardState)
+        {
+            var translationY = cardState == CardState.Expanded
+                ? -1 * (MoviesHeader.Height + MoviesHeader.Margin.Top)
+                : 0;
+
+            var opacity = cardState == CardState.Expanded ? 0 : 1;
+                        
+            var animation = new Animation
+            {
+                { 0, 1, new Animation(v => MoviesHeader.TranslationY = v, MoviesHeader.TranslationY, translationY) },
+                { 0, 1, new Animation(v => MoviesHeader.Opacity = v, MoviesHeader.Opacity, opacity) }
+            };
+            animation.Commit(this, "titleAnimation");
         }
 
         private void MainCardView_UserInteracted(PanCardView.CardsView view,
@@ -55,15 +82,15 @@ namespace MarvelCards
             var nextCard = MainCardView.CurrentBackViews.FirstOrDefault() as HeroCard;
 
             var percentFromCenter = Math.Abs(args.Diff / this.Width);
-            Debug.WriteLine($"% from C: {card.CardImage.Source.ToString()} {args.Status} {percentFromCenter}");
+            Debug.WriteLine($"% from C: {card.MainImage.Source.ToString()} {args.Status} {percentFromCenter}");
 
             if (args.Status == PanCardView.Enums.UserInteractionStatus.Started)
             {
                 if (nextCard != null && false)
                 {
                     nextCard.Opacity = 1;
-                    nextCard.CardImage.Scale = 1;
-                    nextCard.CardImage.TranslationY = _defaultTranslationY;
+                    nextCard.MainImage.Scale = 1;
+                    nextCard.MainImage.TranslationY = _defaultTranslationY;
                 }
             }
 
@@ -74,15 +101,15 @@ namespace MarvelCards
                 card.Opacity = (opacity > 1) ? 1 : opacity;
 
                 // set scale of image in current card
-                card.CardImage.Scale = Math.Max(1 - (percentFromCenter * 1.5), .5);
+                card.MainImage.Scale = Math.Max(1 - (percentFromCenter * 1.5), .5);
 
                 // set position of image in current card
                 var movementFactor = 150;
-                card.CardImage.TranslationY = _defaultTranslationY + (movementFactor * percentFromCenter);
+                card.MainImage.TranslationY = _defaultTranslationY + (movementFactor * percentFromCenter);
 
                 // set opacity of next card
-                nextCard.CardImage.Opacity = 1 - (opacity/4);
-                nextCard.CardImage.Scale = Math.Min(percentFromCenter * 3, 1);
+                nextCard.MainImage.Opacity = 1 - (opacity/4);
+                nextCard.MainImage.Scale = Math.Min(percentFromCenter * 3, 1);
 
                 // set margin
                 var lrMargin = Math.Min(10, 50 * percentFromCenter);
@@ -96,21 +123,19 @@ namespace MarvelCards
                 || args.Status == PanCardView.Enums.UserInteractionStatus.Ending)
             {
                 card.Opacity = 1;
-                card.CardImage.Opacity = 1;
-                card.CardImage.Scale = 1;
-                card.CardImage.TranslationY = _defaultTranslationY;
+                card.MainImage.Opacity = 1;
+                card.MainImage.Scale = 1;
+                card.MainImage.TranslationY = _defaultTranslationY;
 
                 // ensure next card is hidden
-                nextCard.CardImage.Opacity = 0;
-                nextCard.CardImage.Scale = 1;
-                nextCard.CardImage.TranslationY = _defaultTranslationY;
+                nextCard.MainImage.Opacity = 0;
+                nextCard.MainImage.Scale = 1;
+                nextCard.MainImage.TranslationY = _defaultTranslationY;
 
                 // remove margin
                 card.ScaleTo(1, 50);
 
             }
         }
-
-        
     }
 }

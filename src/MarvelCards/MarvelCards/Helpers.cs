@@ -1,10 +1,16 @@
 ﻿using System;
 namespace MarvelCards
 {
-    public class Helpers
+    public static class Helpers
     {
-        public Helpers()
+        public static double BoundedMinMax(double value, double min, double max)
         {
+            return (value < min)
+                ? min
+                : (value > max)
+                    ? max
+                    : value;
         }
+        
     }
 }

@@ -34,8 +34,11 @@
            Source="back_arrow"
            HorizontalOptions="Start"
            VerticalOptions="Start"
-           Margin="40,30,0,0"
-           />
+           Margin="40,30,0,0">
+           <Image.GestureRecognizers>
+               <TapGestureRecognizer Tapped="BackArrowImage_Tapped" />
+           </Image.GestureRecognizers>
+       </Image>
 
    </Grid>
 </ContentPage>
