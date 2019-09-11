@@ -21,26 +21,29 @@
             Source="{Binding Image}"
             HeightRequest="400"
             WidthRequest="400"
-            TranslationY="50"
+            TranslationY="60"
             VerticalOptions="Start"/>
         
 
             <StackLayout Margin="40,400,40,30">
-                           
-            <Label Text="{Binding HeroNameLine1}"
-                VerticalOptions="Start"
-                HorizontalOptions="Start"
-                Style="{d:StaticResource Header}"
-                />
 
-            <Label Text="{Binding HeroNameLine2}"
-                VerticalOptions="Start"
-                HorizontalOptions="Start"
-                TranslationY="-10"
-                Style="{d:StaticResource Header}"
-                />
+            <StackLayout x:Name="HeroNameLabels" Spacing="0">
+                <Label Text="{Binding HeroNameLine1}"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Start"
+                    Style="{d:StaticResource Header}"
+                    />
 
-            <Label Text="{Binding RealName}"
+                <Label Text="{Binding HeroNameLine2}"
+                    VerticalOptions="Start"
+                    HorizontalOptions="Start"
+                    TranslationY="-10"
+                    Style="{d:StaticResource Header}"
+                    />
+            </StackLayout>
+
+            <Label x:Name="RealNameLabel"
+                Text="{Binding RealName}"
                 VerticalOptions="Start"
                 HorizontalOptions="Start"
                 Style="{d:StaticResource SubHeader}"

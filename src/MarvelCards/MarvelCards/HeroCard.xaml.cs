@@ -18,6 +18,7 @@ namespace MarvelCards
         private readonly float _cornerRadius = 60f;
         private double _cardTopAnimPosition;
 
+
         SKColor _heroColor;
         SKPaint _heroPaint;
 
@@ -93,21 +94,86 @@ namespace MarvelCards
 
             if(cardState == CardState.Expanded)
             {
-                parentAnimation.Add(0, .1, CreateCardAnimation(cardState));
+                parentAnimation.Add(0, .15, CreateCardAnimation(cardState));
+                parentAnimation.Add(0, .5, CreateHeroImageAnimation(cardState));
+                parentAnimation.Add(0, .5, CreateHeroNameAnimation(cardState));
             }
             else
             {
-                parentAnimation.Add(0, .1, CreateCardAnimation(cardState));
+                parentAnimation.Add(0.1, 0.4, CreateCardAnimation(cardState));
+                parentAnimation.Add(0.0, 0.4, CreateHeroImageAnimation(cardState));
+                parentAnimation.Add(0.1, 0.4, CreateHeroNameAnimation(cardState));
             }
 
             parentAnimation.Commit(this, "MoreInfoAnimation", length:2000);
 
         }
 
+        private Animation CreateHeroNameAnimation(CardState cardState)
+        {
+            double animStart, animEnd;
+            Easing easing;
+            if (cardState == CardState.Expanded)
+            {
+                animStart = HeroNameLabels.TranslationY;
+                animEnd = -50;
+                easing = Easing.SpringOut;
+            }
+            else
+            {
+                animStart = HeroNameLabels.TranslationY;
+                animEnd = 0;
+                easing = Easing.SpringIn;
+
+            }
+
+            var cardAnim = new Animation(
+                v =>
+                {
+                    HeroNameLabels.TranslationY = v;
+                    RealNameLabel.TranslationY = v;
+                },
+                animStart,
+                animEnd,
+                easing);
+
+            return cardAnim;
+        }
+
+        private Animation CreateHeroImageAnimation(CardState cardState)
+        {
+            double animStart, animEnd;
+            Easing easing;
+            if(cardState == CardState.Expanded)
+            {
+                animStart = HeroImage.TranslationY;
+                animEnd = 0;
+                easing = Easing.SpringOut;
+            }
+            else
+            {
+                animStart = HeroImage.TranslationY;
+                animEnd = 50;
+                easing = Easing.SpringIn;
+
+            }
+            
+            var cardAnim = new Animation(
+                v =>
+                {
+                    HeroImage.TranslationY = v;
+                },
+                animStart,
+                animEnd,
+                easing);
+
+            return cardAnim;
+        }
+
         private Animation CreateCardAnimation(CardState cardState)
         {
             var cardAnimStart = cardState == CardState.Expanded ? _cardTopMargin : -_cornerRadius;
-            var cardAnimEnd = cardState == CardState.Expanded ? _cornerRadius : _cardTopMargin;
+            var cardAnimEnd = cardState == CardState.Expanded ? -_cornerRadius : _cardTopMargin;
 
             var cardAnim = new Animation(
                 v=>

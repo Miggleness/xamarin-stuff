@@ -72,7 +72,7 @@ namespace MarvelCards
                 { 0, 1, new Animation(v => MoviesHeader.TranslationY = v, MoviesHeader.TranslationY, translationY) },
                 { 0, 1, new Animation(v => MoviesHeader.Opacity = v, MoviesHeader.Opacity, opacity) }
             };
-            animation.Commit(this, "titleAnimation");
+            animation.Commit(this, "titleAnimation", length:300);
         }
 
         private void MainCardView_UserInteracted(PanCardView.CardsView view,
