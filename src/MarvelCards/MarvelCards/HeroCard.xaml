@@ -16,6 +16,13 @@
             PaintSurface="CardBackground_PaintSurface"
             />
 
+        <skia:SKCanvasView
+            x:Name="CardGradient"
+            HorizontalOptions="Fill"
+            VerticalOptions="End"
+            
+            />
+
         <Image
             x:Name="HeroImage"
             Source="{Binding Image}"
@@ -28,13 +35,17 @@
             <StackLayout Margin="40,400,40,30">
 
             <StackLayout x:Name="HeroNameLabels" Spacing="0">
-                <Label Text="{Binding HeroNameLine1}"
+                <Label
+                    x:Name="HeroNameLabelLine1"
+                    Text="{Binding HeroNameLine1}"
                     VerticalOptions="Start"
                     HorizontalOptions="Start"
                     Style="{d:StaticResource Header}"
                     />
 
-                <Label Text="{Binding HeroNameLine2}"
+                <Label
+                    x:Name="HeroNameLabelLine2"
+                    Text="{Binding HeroNameLine2}"
                     VerticalOptions="Start"
                     HorizontalOptions="Start"
                     TranslationY="-10"

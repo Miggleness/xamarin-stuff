@@ -66,13 +66,20 @@ namespace MarvelCards
                 : 0;
 
             var opacity = cardState == CardState.Expanded ? 0 : 1;
-                        
-            var animation = new Animation
+
+            var animation = new Animation();
+            if(cardState == CardState.Expanded)
             {
-                { 0, 1, new Animation(v => MoviesHeader.TranslationY = v, MoviesHeader.TranslationY, translationY) },
-                { 0, 1, new Animation(v => MoviesHeader.Opacity = v, MoviesHeader.Opacity, opacity) }
-            };
-            animation.Commit(this, "titleAnimation", length:300);
+                animation.Add(0.00, 0.25, new Animation(v => MoviesHeader.TranslationY = v, MoviesHeader.TranslationY, translationY));
+                animation.Add(0.00, 0.25, new Animation(v => MoviesHeader.Opacity = v, MoviesHeader.Opacity, opacity));
+            }
+            else
+            {
+                animation.Add(0.75, 1, new Animation(v => MoviesHeader.TranslationY = v, MoviesHeader.TranslationY, translationY));
+                animation.Add(0.75, 1, new Animation(v => MoviesHeader.Opacity = v, MoviesHeader.Opacity, opacity));
+            }
+
+            animation.Commit(this, "titleAnimation", length: 1000);
         }
 
         private void MainCardView_UserInteracted(PanCardView.CardsView view,
